@@ -217,6 +217,13 @@ footer:hover {
     cursor: pointer;
 }
 
+footer a,
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+
 /* Anination for winner */
 /* .winner {
 } */
@@ -262,6 +269,11 @@ footer:hover {
         position: relative;
         bottom: 30rem;
         right: -14rem;
+    }
+
+    .board.x .cell:not(.x):not(.circle):hover::before,
+    .board.x .cell:not(.x):not(.circle):hover::after {
+        display: none;
     }
 
 

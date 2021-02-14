@@ -3,7 +3,6 @@ const userInterface = (() => {
     // DOM elements
     const displayMessage = document.getElementById('display');
     const board = document.getElementById('board');
-    const leftName = document.getElementById('left-player-name');
     const alertSound = document.getElementById('alert-sound');
     const cellPress = document.getElementById('cell-press');
     const cellElements = document.querySelectorAll('[data-cell]');
@@ -12,12 +11,6 @@ const userInterface = (() => {
     const placeMark = (cell, marker) => {
         cellClickSound();
         cell.classList.add(marker);
-    }
-    // displayPlayerName
-    const displayPlayerName = (playerName) => {
-        if (playerName.toUpperCase() !== 'AI') {
-            leftName.textContent = playerName;
-        }
     }
 
     // addBoardClass
@@ -198,7 +191,6 @@ const gameBoard = (() => {
     }
     // human play
     const humanPlay = (cell) => {
-        console.log(cell);
         userInterface.placeMark(cell, X_CLASS)
         if (checkWin(X_CLASS)) {
             userInterface.updateMessage("X's Win");
