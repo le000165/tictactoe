@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Orbitron&display=swap');
+
+:root {
+    --white: #ffffff;
+    --black: #000000;
+    --grey: #f6f4e6;
+    --dark-grey: #393e46;
+    --dark-green: #206a5d;
+    --light-green: #16c79a;
+    --yellow: #ffe227;
+    --red: #eb596e;
+    --cell-size: 12rem;
+    --mark-size: calc(var(--cell-size) * .8);
+    --circle-size: calc(var(--cell-size) * .7);
+    --cell-border-size: 5px;
+    --blink-winner: ;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+body,
+html {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background: var(--black);
+    color: var(--white);
+    display: flex;
+    min-height: 100vh;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Orbitron', sans-serif;
+    position: relative;
+}
+
+/* title */
+.display {
+    text-align: center;
+    margin: 2rem auto;
+}
+
+.display span {
+    color: var(--light-green);
+}
+
+/* middle area */
+.content-containter {
+    width: 80rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-bottom: 2.5rem;
+}
+
+/* =============== game board and game cells =========== */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: var(--cell-border-size);
+    background: var(--white);
+    font-family: 'Lexend Mega', sans-serif;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    font-size: 10rem;
+    background: var(--black);
+    color: var(--black);
+    /* color: var(--white); */
+    cursor: pointer;
+    position: relative;
+}
+
+/* --------------- X ---------------*/
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+    position: absolute;
+    content: '';
+    width: calc(var(--mark-size) * .13);
+    border-radius: 5px;
+    height: var(--mark-size);
+    background: var(--white);
+    /* animation */
+    animation-name: var(--blink-winner);
+    animation-timing-function: linear;
+    animation-duration: .3s;
+    animation-iteration-count: 2;
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle)::before {
+    transform: rotateZ(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle)::after {
+    transform: rotateZ(-45deg);
+}
+
+/* hover effect on for X marks, determine by who turn on board */
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+    background: var(--dark-grey);
+}
+
+/* ------------ Circle --------  */
+.cell.circle:before,
+.cell.circle:after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+    position: absolute;
+    content: '';
+    width: var(--circle-size);
+    height: var(--circle-size);
+    border-radius: 50%;
+    background: var(--white);
+    /* animation */
+    animation-name: var(--blink-winner);
+    animation-timing-function: linear;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+}
+
+.cell.circle:after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+    width: calc(var(--circle-size) * .7);
+    height: calc(var(--circle-size) * .7);
+    background: var(--black);
+}
+
+/* not allow cursor pointer on already clicked */
+.cell.x,
+.cell.circle {
+    cursor: not-allowed;
+}
+
+/* hover effect on for X marks, determine by who turn on board */
+.board.circle .cell:not(.x):not(.circle):hover::before {
+    background: var(--dark-grey);
+}
+
+/* =================== player ========================*/
+.player-container {
+    display: flex;
+    flex-direction: column;
+    width: 6rem;
+}
+
+.player-container * {
+    margin: 0.5rem auto;
+}
+
+.avatar {
+    font-family: 'Lexend Mega', sans-serif;
+    text-align: center;
+    width: 4rem;
+    border-radius: 0.3rem;
+    font-size: 3rem;
+    background: var(--grey);
+    color: var(--black);
+}
+
+/* restart button */
+.restart-btn {
+    width: 10rem;
+    font-size: 1.2rem;
+    line-height: 3rem;
+    outline: none;
+    background: var(--black);
+    border: 0.2rem solid var(--grey);
+    color: var(--grey);
+    /* margin-bottom: 1rem; */
+    transition: all 100ms ease;
+    border-radius: 2rem;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    /* box-shadow: 7px 7px var(--yellow); */
+}
+
+.restart-btn:hover {
+    background: var(--grey);
+    color: var(--black);
+    /* transform: translateY(6px) translateX(6px); */
+    /* box-shadow: 2px 2px var(--yellow); */
+
+}
+
+/* footer */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .3rem 0;
+    margin: .5rem auto;
+    border-bottom: 3px solid #000000;
+}
+
+footer:hover {
+    border-bottom-color: #16c79a;
+    cursor: pointer;
+}
+
+/* Anination for winner */
+/* .winner {
+} */
+
+/* Keyframes Animation */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* responsive */
+@media only screen and (max-width: 600px) {
+
+    :root {
+        --cell-size: 7rem;
+        --mark-size: calc(var(--cell-size) * .8);
+        --circle-size: calc(var(--cell-size) * .7);
+        --cell-border-size: 2px;
+    }
+
+    body {
+        min-height: 100vh;
+    }
+
+    .content-containter {
+        width: 80vw;
+        flex-direction: column;
+    }
+
+    .player-container {
+        align-self: flex-start;
+        margin-bottom: 1rem;
+    }
+
+    .robot {
+        position: relative;
+        bottom: 30rem;
+        right: -14rem;
+    }
+
+
+}
